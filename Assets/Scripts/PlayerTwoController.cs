@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerTwoController : MonoBehaviour
 {
-
     public float jumpForce;
     public float moveSpeed;
     private Rigidbody rb;
@@ -30,9 +29,9 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        float input = Input.GetAxis("Player 1");
+        float input = Input.GetAxis("Player 2");
         rb.AddForce(Vector3.right * input * moveSpeed);
-        if (Input.GetKeyDown(KeyCode.X) && onGround)
+        if ((Input.GetKeyDown(KeyCode.Alpha8) || (Input.GetKeyDown(KeyCode.Keypad8))) && onGround)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             onGround = false;
