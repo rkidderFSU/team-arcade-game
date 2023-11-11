@@ -41,12 +41,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        onGround = true;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            onGround = true;
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        onGround = false;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            onGround = false;
+        }
     }
 
     IEnumerator Countdown()
