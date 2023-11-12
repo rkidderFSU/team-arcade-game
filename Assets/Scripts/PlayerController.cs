@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public float jumpForce;
     public float moveSpeed;
     private Rigidbody rb;
     public bool onGround;
-    public float timeToWait;
-    public bool canMove;
+    public GameManager manager;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        StartCoroutine(Countdown());
+        rb = GameObject.Find("Player 1").GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        if (manager.isGameActive)
         {
             Move();
         }
@@ -53,12 +50,5 @@ public class PlayerController : MonoBehaviour
         {
             onGround = false;
         }
-    }
-
-    IEnumerator Countdown()
-    {
-        canMove = false;
-        yield return new WaitForSeconds(timeToWait);
-        canMove = true;
     }
 }
