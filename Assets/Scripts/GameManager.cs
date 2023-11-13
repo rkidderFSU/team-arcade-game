@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     {
         Physics.gravity *= gravityMultiplier;
         StartCoroutine(Countdown());
-        StartCoroutine(SpawnPlatforms(spawnDelay));
     }
 
     // Update is called once per frame
@@ -38,6 +37,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(startDelay / 3);
         countdownText.text = "GO!";
         isGameActive = true;
+        StartCoroutine(SpawnPlatforms(spawnDelay));
         yield return new WaitForSeconds(1);
         countdownText.gameObject.SetActive(false);
     }
@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private Vector3 GenerateRandomLocation()
+    public Vector3 GenerateRandomLocation()
     {
-        return new Vector3(Random.Range(-platformSpawnRange, platformSpawnRange), 10);
+        return new Vector3(Random.Range(-platformSpawnRange, platformSpawnRange), 5);
     }
 }

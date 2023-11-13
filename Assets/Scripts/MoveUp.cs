@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveDown : MonoBehaviour
+public class MoveUp : MonoBehaviour
 {
     private GameManager manager;
     public float moveSpeed;
@@ -17,7 +17,7 @@ public class MoveDown : MonoBehaviour
     {
         if (manager.isGameActive)
         {
-            transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+            transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
         }
     }
 }
