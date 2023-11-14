@@ -10,13 +10,13 @@ public class GameManager : MonoBehaviour
     public float startDelay;
     public GameObject platform;
     public bool isGameActive;
-    private float platformSpawnRange = 8f;
+    private int platformSpawnRange = 2;
     public float spawnDelay;
 
     // Start is called before the first frame update
     void Start()
     {
-        Physics.gravity *= gravityMultiplier;
+        Physics2D.gravity *= gravityMultiplier;
         StartCoroutine(Countdown());
     }
 
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnPlatforms(float platformSpawnTime)
     {
+        Instantiate(platform, GenerateRandomLocation(), platform.transform.rotation);
         while (isGameActive)
         {
             yield return new WaitForSeconds(platformSpawnTime);
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     public Vector3 GenerateRandomLocation()
     {
-        return new Vector3(Random.Range(-platformSpawnRange, platformSpawnRange), 5);
+        Vector3 randomLocation =  new Vector3(Random.Range(-platformSpawnRange, platformSpawnRange) * 3, transform.position.y + 10);
+        return randomLocation;
     }
 }

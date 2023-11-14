@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,14 @@ public class PlayerController : MonoBehaviour
 {
     public float jumpForce;
     public float moveSpeed;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     public bool onGround;
     public GameManager manager;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GameObject.Find("Player 1").GetComponent<Rigidbody>();
+        rb = GameObject.Find("Player 1").GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -31,24 +32,24 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.right * input * moveSpeed);
         if (Input.GetKeyDown(KeyCode.X) && onGround)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             onGround = false;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            onGround = true;
-        }
-    }
+     private void OnCollisionEnter2D(Collision2D collision)
+     {
+         if (collision.gameObject.CompareTag("Ground"))
+         {
+             onGround = true;
+         }
+     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            onGround = false;
-        }
-    }
+     private void OnCollisionExit2D(Collision2D collision)
+     {
+         if (collision.gameObject.CompareTag("Ground"))
+         {
+             onGround = false;
+         }
+     }
 }

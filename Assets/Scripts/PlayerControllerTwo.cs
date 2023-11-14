@@ -6,14 +6,14 @@ public class PlayerControllerTwo : MonoBehaviour
 {
     public float jumpForce;
     public float moveSpeed;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     public bool onGround;
     public GameManager manager;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GameObject.Find("Player 2").GetComponent<Rigidbody>();
+        rb = GameObject.Find("Player 2").GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -31,12 +31,12 @@ public class PlayerControllerTwo : MonoBehaviour
         rb.AddForce(Vector3.right * input * moveSpeed);
         if ((Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) && onGround)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             onGround = false;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -44,7 +44,7 @@ public class PlayerControllerTwo : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
