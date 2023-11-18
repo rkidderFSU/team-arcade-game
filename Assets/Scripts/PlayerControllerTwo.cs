@@ -9,6 +9,7 @@ public class PlayerControllerTwo : MonoBehaviour
     private Rigidbody2D rb;
     public bool onGround;
     public GameManager manager;
+    public float playerCollisionForce;
 
     // Start is called before the first frame update
     void Start()
@@ -38,9 +39,10 @@ public class PlayerControllerTwo : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && transform.position.y > collision.transform.position.y)
         {
             onGround = true;
+            rb.velocity = Vector3.zero;
         }
     }
 

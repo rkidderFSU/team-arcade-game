@@ -10,8 +10,11 @@ public class GameManager : MonoBehaviour
     public float startDelay;
     public GameObject platform;
     public bool isGameActive;
-    private int platformSpawnRange = 2;
+    public float platformSpawnRange = 2;
     public float spawnDelay;
+    public int spawnCount;
+    public TextMeshProUGUI scoreText;
+    private float score;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +30,7 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+        UpdateScore();
     }
 
     IEnumerator Countdown()
@@ -40,25 +44,36 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(startDelay / 3);
         countdownText.text = "GO!";
         isGameActive = true;
-        StartCoroutine(SpawnPlatforms(spawnDelay));
+        StartCoroutine(SpawnPlatforms(spawnDelay, spawnCount));
         yield return new WaitForSeconds(1);
         countdownText.gameObject.SetActive(false);
     }
 
-    IEnumerator SpawnPlatforms(float platformSpawnTime)
+    IEnumerator SpawnPlatforms(float platformSpawnTime, int platformsToSpawn)
     {
-        Instantiate(platform, GenerateRandomLocation(), platform.transform.rotation);
+        for (int i = 0; i < platformsToSpawn; i++) // Spawns platforms immediately so the players don't have to wait for the first set of platforms to spawn
+        {
+            Instantiate(platform, GenerateRandomLocation(), platform.transform.rotation);
+        }
         while (isGameActive)
         {
             yield return new WaitForSeconds(platformSpawnTime);
-            Instantiate(platform, GenerateRandomLocation(), platform.transform.rotation);
-            Debug.Log("Spawned Platform");
+            for (int i = 0; i < platformsToSpawn; i++)
+            {
+                Instantiate(platform, GenerateRandomLocation(), platform.transform.rotation);
+            }
         }
     }
 
     public Vector3 GenerateRandomLocation()
     {
-        Vector3 randomLocation =  new Vector3(Random.Range(-platformSpawnRange, platformSpawnRange) * 3, transform.position.y + 10);
+        Vector3 randomLocation = new Vector3(Random.Range(-platformSpawnRange, platformSpawnRange) * 3, transform.position.y + 10);
         return randomLocation;
+    }
+
+    public void UpdateScore()
+    {
+        score = Mathf.RoundToInt(GameObject.Find("Main Camera").transform.position.y - 5) / 3; // Score increases by (movement speed of Camera / 2) every second
+        scoreText.text = "Height: " + score + "m";
     }
 }
