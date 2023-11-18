@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class KillZone : MonoBehaviour
 {
+    public GameManager manager;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Destroy(other.gameObject);
-        // If one of the players, display game over (make this in GameManager)
+        if (other.gameObject.CompareTag("Player"))
+        {
+            manager.GameOver();
+        }
     }
 }
