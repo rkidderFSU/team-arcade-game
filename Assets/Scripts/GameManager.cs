@@ -24,11 +24,16 @@ public class GameManager : MonoBehaviour
     public GameObject rocks;
     public GameObject ground;
     public GameObject startingPlatforms;
+    public bool gameOver;
+    public bool titleScreenActive;
+    public Camera cameron;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        titleScreenActive = true;
+        score = 0;
     }
 
     // Update is called once per frame
@@ -41,6 +46,14 @@ public class GameManager : MonoBehaviour
         if (isGameActive)
         {
             UpdateScore();
+        }
+        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) && titleScreenActive)
+        {
+            StartGame();
+        }
+        if ((Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) && gameOver)
+        {
+            RestartGame();
         }
     }
 
@@ -91,14 +104,18 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        titleScreen.gameObject.SetActive(false);
+        titleScreenActive = false;
+        titleScreen.SetActive(false);
         scoreText.gameObject.SetActive(true);
-        ground.gameObject.SetActive(true);
-        waterfall.gameObject.SetActive(true);
-        rocks.gameObject.SetActive(true);
-        playerOne.gameObject.SetActive(true);
-        playerTwo.gameObject.SetActive(true);
-        startingPlatforms.gameObject.SetActive(true);
+        ground.SetActive(true);
+        waterfall.SetActive(true);
+        rocks.SetActive(true);
+        Instantiate(playerOne, playerOne.transform.position, playerOne.transform.rotation);
+        Instantiate(playerTwo, playerTwo.transform.position, playerTwo.transform.rotation);
+        for (int i = 0; i < 2; i++)
+        {
+            Instantiate(startingPlatforms, GenerateRandomLocation(), startingPlatforms.transform.rotation);
+        }
         Physics2D.gravity *= gravityMultiplier;
         StartCoroutine(Countdown());
     }
@@ -106,15 +123,21 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameActive = false;
-        gameOverScreen.gameObject.SetActive(true);
+        gameOver = true;
+        gameOverScreen.SetActive(true);
     }
 
     public void RestartGame()
     {
-        titleScreen.gameObject.SetActive(true);
+        gameOver = false;
+        titleScreen.SetActive(true);
         countdownText.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
-        gameOverScreen.gameObject.SetActive(false);
-
+        gameOverScreen.SetActive(false);
+        ground.SetActive(false);
+        waterfall.SetActive(false);
+        rocks.SetActive(false);
+        cameron.transform.position = new Vector3(0, 5, -10);
+        titleScreenActive = true;
     }
 }

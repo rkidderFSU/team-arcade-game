@@ -10,14 +10,28 @@ public class DestroyPlatform : MonoBehaviour
     {
         manager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         transform.parent = GameObject.Find("Platform Container").transform;
+        StartCoroutine(DestroySelf());
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!manager.isGameActive)
+        {
+            StopAllCoroutines();
+        }
+        if (manager.gameOver)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator DestroySelf()
+    {
         if (manager.isGameActive)
         {
-            Destroy(gameObject, 7);
+            yield return new WaitForSeconds(7);
+            Destroy(gameObject);
         }
     }
 }

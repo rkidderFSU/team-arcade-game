@@ -8,13 +8,15 @@ public class PlayerControllerTwo : MonoBehaviour
     public float moveSpeed;
     private Rigidbody2D rb;
     public bool onGround;
-    public GameManager manager;
+    private GameManager manager;
     public float playerCollisionForce;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GameObject.Find("Player 2").GetComponent<Rigidbody2D>();
+        manager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        rb = GetComponent<Rigidbody2D>();
+        onGround = true;
     }
 
     // Update is called once per frame
@@ -23,6 +25,10 @@ public class PlayerControllerTwo : MonoBehaviour
         if (manager.isGameActive)
         {
             Move();
+        }
+        if (manager.gameOver)
+        {
+            Destroy(gameObject);
         }
     }
 
