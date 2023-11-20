@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,12 +28,17 @@ public class GameManager : MonoBehaviour
     public bool gameOver;
     public bool titleScreenActive;
     public Camera cameron;
-
+    AudioSource cameronMusic;
+    AudioSource music;
+    public AudioClip mainMenuMusic;
 
     // Start is called before the first frame update
     void Start()
     {
+        music = GetComponent<AudioSource>();
+        cameronMusic = GameObject.Find("Main Camera").GetComponent<AudioSource>();
         titleScreenActive = true;
+        music.Play();
         score = 0;
     }
 
@@ -47,11 +53,11 @@ public class GameManager : MonoBehaviour
         {
             UpdateScore();
         }
-        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) && titleScreenActive)
+        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) && titleScreenActive && !isGameActive)
         {
             StartGame();
         }
-        if ((Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) && gameOver)
+        if ((Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) && gameOver && !isGameActive)
         {
             RestartGame();
         }
@@ -69,6 +75,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(startDelay / 3);
         countdownText.text = "GO!";
         isGameActive = true;
+        cameronMusic.Play();
         StartCoroutine(SpawnPlatforms(spawnDelay, spawnCount));
         yield return new WaitForSeconds(1);
         countdownText.gameObject.SetActive(false);
@@ -104,6 +111,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        music.Stop();
         titleScreenActive = false;
         titleScreen.SetActive(false);
         scoreText.gameObject.SetActive(true);
@@ -122,6 +130,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        cameronMusic.Stop();
         isGameActive = false;
         gameOver = true;
         gameOverScreen.SetActive(true);
@@ -129,15 +138,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        gameOver = false;
-        titleScreen.SetActive(true);
-        countdownText.gameObject.SetActive(false);
-        scoreText.gameObject.SetActive(false);
-        gameOverScreen.SetActive(false);
-        ground.SetActive(false);
-        waterfall.SetActive(false);
-        rocks.SetActive(false);
-        cameron.transform.position = new Vector3(0, 5, -10);
-        titleScreenActive = true;
+        SceneManager.LoadScene("Game");
     }
 }

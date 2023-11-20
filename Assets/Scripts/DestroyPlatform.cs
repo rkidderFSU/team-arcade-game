@@ -20,10 +20,6 @@ public class DestroyPlatform : MonoBehaviour
         {
             StopAllCoroutines();
         }
-        if (manager.gameOver)
-        {
-            Destroy(gameObject);
-        }
     }
 
     IEnumerator DestroySelf()

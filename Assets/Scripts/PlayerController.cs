@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public bool onGround;
     private GameManager manager;
-    public float playerCollisionForce;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +25,6 @@ public class PlayerController : MonoBehaviour
         if (manager.isGameActive)
         {
             Move();
-        }
-        if (manager.gameOver)
-        {
-            Destroy(gameObject);
         }
     }
 
