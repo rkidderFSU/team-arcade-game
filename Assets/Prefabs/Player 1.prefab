@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 30
-  moveSpeed: 5
+  moveSpeed: 35
   onGround: 0
   jumpSound: {fileID: 8300000, guid: 2fd40390e2dc9b44aa1d660bf65c7c66, type: 3}
 --- !u!50 &2362081061880361477

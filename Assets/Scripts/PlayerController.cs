@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private GameManager manager;
     AudioSource playerAudio;
     public AudioClip jumpSound;
+    float input;
 
     // Start is called before the first frame update
     void Start()
@@ -27,22 +29,34 @@ public class PlayerController : MonoBehaviour
     {
         if (manager.isGameActive)
         {
-            Move();
+            Jump();
         }
     }
 
-    private void Move()
+    private void FixedUpdate()
     {
-        float input = Input.GetAxis("Player 1");
+        Move();
+    }
+
+    private void Jump()
+    {
         if (Input.GetKeyDown(KeyCode.X) && onGround)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             playerAudio.PlayOneShot(jumpSound, 1f);
             onGround = false;
         }
-        else if (!onGround)
+    }
+
+    private void Move()
+    {
+        input = Input.GetAxis("Player 1");
+        if (manager.isGameActive)
         {
-            rb.AddForce(Vector3.right * input * moveSpeed);
+            if (!onGround)
+            {
+                rb.AddForce(Vector3.right * input * moveSpeed);
+            }
         }
     }
 

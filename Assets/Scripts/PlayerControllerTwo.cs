@@ -11,6 +11,7 @@ public class PlayerControllerTwo : MonoBehaviour
     private GameManager manager;
     AudioSource playerAudio;
     public AudioClip jumpSound;
+    float input;
 
     // Start is called before the first frame update
     void Start()
@@ -27,22 +28,35 @@ public class PlayerControllerTwo : MonoBehaviour
     {
         if (manager.isGameActive)
         {
-            Move();
+            Jump();
         }
     }
 
-    private void Move()
+    private void FixedUpdate()
     {
-        float input = Input.GetAxis("Player 2");
+        Move();
+    }
+
+    private void Jump()
+    {
+        input = Input.GetAxis("Player 2");
         if ((Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) && onGround)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             playerAudio.PlayOneShot(jumpSound, 1f);
             onGround = false;
         }
-        else if (!onGround)
+    }
+
+    private void Move()
+    {
+        input = Input.GetAxis("Player 2");
+        if (manager.isGameActive)
         {
-            rb.AddForce(Vector3.right * input * moveSpeed);
+            if (!onGround)
+            {
+                rb.AddForce(Vector3.right * input * moveSpeed);
+            }
         }
     }
 
