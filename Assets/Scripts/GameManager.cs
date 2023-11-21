@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Game");
+        Physics2D.gravity = new Vector2(0, -9.81f);
+        SceneManager.LoadScene(0);
     }
 }

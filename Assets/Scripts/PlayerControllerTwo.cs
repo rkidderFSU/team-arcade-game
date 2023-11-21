@@ -15,6 +15,7 @@ public class PlayerControllerTwo : MonoBehaviour
     {
         manager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+        rb.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         onGround = true;
     }
 

@@ -174,7 +174,6 @@ MonoBehaviour:
   titleScreenActive: 0
   cameron: {fileID: 963194227}
   mainMenuMusic: {fileID: 8300000, guid: 1906ed6a7761d3d4db982e6a14ec95f7, type: 3}
-  gameLoopMusic: {fileID: 8300000, guid: 7bf0a8e854275454baa98ce3db96280f, type: 3}
 --- !u!4 &166906898
 Transform:
   m_ObjectHideFlags: 0
@@ -1156,6 +1155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  gameLoopMusic: {fileID: 0}
 --- !u!82 &963194231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2258,7 +2258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1855003357
 Transform:
   m_ObjectHideFlags: 0
