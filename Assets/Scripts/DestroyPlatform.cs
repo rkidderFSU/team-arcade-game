@@ -26,7 +26,7 @@ public class DestroyPlatform : MonoBehaviour
     {
         if (manager.isGameActive)
         {
-            yield return new WaitForSeconds(7);
+            yield return new WaitForSeconds(7.5f);
             Destroy(gameObject);
         }
     }

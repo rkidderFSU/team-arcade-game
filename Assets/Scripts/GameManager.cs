@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     public AudioClip mainMenuMusic;
     public AudioClip countdownSound;
     public AudioClip goSound;
+    public AudioClip menuSound;
+    public TextMeshProUGUI loadingText;
 
     // Start is called before the first frame update
     void Start()
@@ -61,13 +63,14 @@ public class GameManager : MonoBehaviour
         }
         if ((Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) && gameOver && !isGameActive)
         {
-            RestartGame();
+            StartCoroutine(RestartGame());
         }
     }
 
     IEnumerator Countdown()
     {
         isGameActive = false;
+        yield return new WaitForSeconds(1.5f);
         countdownText.gameObject.SetActive(true);
         countdownText.text = "3";
         music.PlayOneShot(countdownSound, 1f);
@@ -118,6 +121,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         music.Stop();
+        music.PlayOneShot(menuSound, 1f);
         titleScreenActive = false;
         titleScreen.SetActive(false);
         scoreText.gameObject.SetActive(true);
@@ -142,9 +146,13 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(true);
     }
 
-    public void RestartGame()
+    IEnumerator RestartGame()
     {
         Physics2D.gravity = new Vector2(0, -9.81f);
+        music.PlayOneShot(menuSound, 1f);
+        gameOverScreen.SetActive(false);
+        loadingText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(Random.Range(1.7f, 3.6f));
         SceneManager.LoadScene(0);
     }
 }
