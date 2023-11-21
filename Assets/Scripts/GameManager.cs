@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     AudioSource cameronMusic;
     AudioSource music;
     public AudioClip mainMenuMusic;
+    public AudioClip countdownSound;
+    public AudioClip goSound;
 
     // Start is called before the first frame update
     void Start()
@@ -68,12 +70,16 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         countdownText.gameObject.SetActive(true);
         countdownText.text = "3";
+        music.PlayOneShot(countdownSound, 1f);
         yield return new WaitForSeconds(startDelay / 3);
         countdownText.text = "2";
+        music.PlayOneShot(countdownSound, 1f);
         yield return new WaitForSeconds(startDelay / 3);
         countdownText.text = "1";
+        music.PlayOneShot(countdownSound, 1f);
         yield return new WaitForSeconds(startDelay / 3);
         countdownText.text = "GO!";
+        music.PlayOneShot(goSound, 1f);
         isGameActive = true;
         cameronMusic.Play();
         StartCoroutine(SpawnPlatforms(spawnDelay, spawnCount));
