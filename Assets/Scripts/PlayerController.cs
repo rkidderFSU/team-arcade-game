@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +9,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public bool onGround;
     private GameManager manager;
+    AudioSource playerAudio;
+    public AudioClip jumpSound;
 
     // Start is called before the first frame update
     void Start()
     {
         manager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+        playerAudio = GetComponent<AudioSource>();
         rb.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         onGround = true;
     }
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && onGround)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            playerAudio.PlayOneShot(jumpSound, 1f);
             onGround = false;
         }
     }
