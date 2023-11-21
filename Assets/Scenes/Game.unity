@@ -169,6 +169,7 @@ MonoBehaviour:
   waterfall: {fileID: 559505485}
   rocks: {fileID: 312961772}
   ground: {fileID: 1065294398}
+  mainMenu: {fileID: 2070979550}
   startingPlatforms: {fileID: 5843790075913743241, guid: 89ae8d1f47cf0ac479b894bcd37f6827, type: 3}
   gameOver: 0
   titleScreenActive: 0
@@ -1425,7 +1426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23, y: -150}
+  m_AnchoredPosition: {x: 0, y: -80}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1033155393
@@ -1857,7 +1858,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278227716
-  m_fontColor: {r: 0.08636407, g: 0.7735849, b: 0.07589887, a: 1}
+  m_fontColor: {r: 0.07946359, g: 0.5283019, b: 0.07176928, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2680,11 +2681,11 @@ Transform:
   m_GameObject: {fileID: 2070979550}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -363.5, y: -199.68, z: 0}
+  m_LocalPosition: {x: 0, y: 4.819992, z: 0}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2071613273}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2070979552
 SpriteRenderer:
@@ -2768,7 +2769,6 @@ RectTransform:
   m_Children:
   - {fileID: 1103318868}
   - {fileID: 1033155392}
-  - {fileID: 2070979551}
   m_Father: {fileID: 186044691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2784,5 +2784,6 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1065294402}
   - {fileID: 186044691}
+  - {fileID: 2070979551}
   - {fileID: 1372559500}
   - {fileID: 1352861501}

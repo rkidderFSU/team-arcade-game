@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject waterfall;
     public GameObject rocks;
     public GameObject ground;
+    public GameObject mainMenu;
     public GameObject startingPlatforms;
     public bool gameOver;
     public bool titleScreenActive;
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
         music.Stop();
         music.PlayOneShot(menuSound, 1f);
         titleScreenActive = false;
+        mainMenu.SetActive(false);
         titleScreen.SetActive(false);
         scoreText.gameObject.SetActive(true);
         ground.SetActive(true);
