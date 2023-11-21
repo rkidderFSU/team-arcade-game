@@ -34,12 +34,15 @@ public class PlayerControllerTwo : MonoBehaviour
     private void Move()
     {
         float input = Input.GetAxis("Player 2");
-        rb.AddForce(Vector3.right * input * moveSpeed);
         if ((Input.GetKeyDown(KeyCode.Alpha8) || Input.GetKeyDown(KeyCode.Keypad8)) && onGround)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
             playerAudio.PlayOneShot(jumpSound, 1f);
             onGround = false;
+        }
+        else if (!onGround)
+        {
+            rb.AddForce(Vector3.right * input * moveSpeed);
         }
     }
 
