@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         }
         if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7)) && titleScreenActive && !isGameActive)
         {
-            StartGame();
+            StartCoroutine(StartGame());
         }
         if ((Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Alpha9) || Input.GetKeyDown(KeyCode.Keypad9)) && gameOver && !isGameActive)
         {
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     IEnumerator Countdown()
     {
         isGameActive = false;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         countdownText.gameObject.SetActive(true);
         countdownText.text = "3";
         music.PlayOneShot(countdownSound, 1f);
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Height: " + score + "m";
     }
 
-    public void StartGame()
+    IEnumerator StartGame()
     {
         music.Stop();
         music.PlayOneShot(menuSound, 1f);
@@ -135,6 +135,8 @@ public class GameManager : MonoBehaviour
             Instantiate(startingPlatforms, GenerateRandomLocation(), startingPlatforms.transform.rotation);
         }
         Physics2D.gravity *= gravityMultiplier;
+        yield return new WaitForSeconds(1);
+        music.Stop();
         StartCoroutine(Countdown());
     }
 
@@ -152,7 +154,9 @@ public class GameManager : MonoBehaviour
         music.PlayOneShot(menuSound, 1f);
         gameOverScreen.SetActive(false);
         loadingText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(Random.Range(1.7f, 3.6f));
+        yield return new WaitForSeconds(1);
+        music.Stop();
+        yield return new WaitForSeconds(Random.Range(0.7f, 2.6f));
         SceneManager.LoadScene(0);
     }
 }
